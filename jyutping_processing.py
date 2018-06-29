@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import csv, os, re, sys
-import jyutping
+import jyutping_edit
 import time
 
 # from progress.bar import Bar
@@ -48,7 +48,7 @@ def jyutping_processing(inp_file, out_file):
             ch = ch.replace(u'ㄟ', u'a').replace(u'ㄉ', u'de').replace(
                 u'の', u'de').replace(u'ㄚ', 'a').replace(u'ㄠ', u'ao')
             newName += ch
-        jpinyin = jyutping.get(name)
+        jpinyin = jyutping_edit.get(name)
 
         jpinyin_out = ""
         for jname in jpinyin:

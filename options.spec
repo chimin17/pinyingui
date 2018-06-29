@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['main.py'],
+a = Analysis(['options', 'main.spec'],
              pathex=['D:\\gitrepo\\pinyin'],
              binaries=[],
-             datas=[('jyutping_edit/data/zidian_zhyue-ft-kfcd-yp-2013122.txt', 'jyutping_edit/data/zidian_zhyue-ft-kfcd-yp-2013122.txt')],
+             datas=[],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -18,12 +18,16 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
-          name='main',
+          exclude_binaries=True,
+          name='options',
           debug=False,
           strip=False,
           upx=True,
-          runtime_tmpdir=None,
-          console=True , icon='icon.ico')
+          console=True )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               name='options')

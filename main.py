@@ -31,7 +31,7 @@ def clickGo():
 
 def clickfile1():
     name = tkFileDialog.askopenfilename(
-        initialdir="D:/gitrepo/fullwidth2half/",
+        initialdir="D:/",
         filetypes=(("All Files", "*.*"), ("All Files", "*.*")),
         title="Choose a file.")
     entry1.delete(0, len(entry1.get()))
@@ -46,7 +46,7 @@ entry1.insert(0, "input.csv")
 btn1 = tk.Button(root, text="..", command=clickfile1)
 btn1.grid(column=5, row=2)
 
-lbl2 = tk.Label(root, text="export name:")
+lbl2 = tk.Label(root, text="export file:")
 lbl2.grid(column=0, row=3)
 entry2 = tk.Entry(root)
 entry2.grid(column=3, row=3)
