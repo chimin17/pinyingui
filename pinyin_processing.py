@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import csv, os, re, sys
-from pypinyin import pinyin, lazy_pinyin, Style
+from pypinyin import pinyin, lazy_pinyin, Style, load_phrases_dict, load_single_dict
 import time
-
+load_phrases_dict({u'銀行': [[u'yin'], [u'hang']]})
+load_phrases_dict({u'車行': [[u'che'], [u'hang']]})
+load_phrases_dict({u'總行': [[u'zong'], [u'hang']]})
 # from progress.bar import Bar
 
 import re, string
@@ -34,7 +36,7 @@ def pinyin_processing(inp_file, out_file):
     myReader = csv.DictReader(f, delimiter='|')
 
     # fieldnames = myReader.fieldnames
-    fieldnames = ['chinese', 'pinyin']
+    fieldnames = ['chinese', 'pinyin', 'log']
     cw = csv.DictWriter(
         w, delimiter='|', lineterminator='\n', fieldnames=fieldnames)
 

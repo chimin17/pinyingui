@@ -16,7 +16,7 @@ pb.grid(column=3, row=0)
 
 
 def clickGo():
-    lblexport.configure(text="處理中")
+    lblexport.configure(text="in progress")
     pb.start(50)
     time.sleep(1)
     inp = entry1.get()
@@ -54,8 +54,9 @@ entry2.insert(0, "export.csv")
 
 option = tk.StringVar()
 option.set("pinyin")  # initialize
-radio1 = tk.Radiobutton(root, text="拼音", value="pinyin", var=option)
-radio2 = tk.Radiobutton(root, text="粵拼", value="jyutping", var=option)
+radio1 = tk.Radiobutton(root, text="拼音(Pinyin)", value="pinyin", var=option)
+radio2 = tk.Radiobutton(
+    root, text="粵拼(jyutping)", value="Jyutping", var=option)
 radio1.grid(column=0, row=1)
 radio2.grid(column=2, row=1)
 
