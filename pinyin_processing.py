@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-import csv, os, re, sys
+# -*- coding: py36 -*-
+import os, re, sys
+import pandas as pd
 from pypinyin import pinyin, lazy_pinyin, Style, load_phrases_dict, load_single_dict
 import time
 load_phrases_dict({u'銀行': [[u'yin'], [u'hang']]})
@@ -26,28 +28,14 @@ def progress(count, total, status=''):
 def pinyin_processing(inp_file, out_file):
 
     start = time.time()
-
     count = 0
-    w = open(out_file, 'w')
-    global cw
-    total = len(open(inp_file, 'r').readlines())
-    # bar = Bar('Processing', max=len(open(inp_file, 'r').readlines()))
-    f = open(inp_file, 'r')
-    myReader = csv.DictReader(f, delimiter='|')
-
-    # fieldnames = myReader.fieldnames
-    fieldnames = ['chinese', 'pinyin', 'log']
-    cw = csv.DictWriter(
-        w, delimiter='|', lineterminator='\n', fieldnames=fieldnames)
-
-    cw.writeheader()
-    for row in myReader:
-
+    df = pd.read_csv(inp_file, delimiter='|')
+    inputdata = df.loc[:, ['chinese']].squeeze()
+    total = len(inputdata)
+    ouputdata = []
+    for name in inputdata:
         progress(count, total)
-
-        name = row['chinese'].decode("utf-8")
         name = re.sub('[%s]' % re.escape(string.punctuation), '', name)
-
         newName = ''
         for ch in name:
             ch = ch.replace(u'1', u'一').replace(u'2', u'二').replace(
@@ -65,16 +53,17 @@ def pinyin_processing(inp_file, out_file):
                 cpinyin_out += cname + " "
             except:
                 cpinyin_out += cname[0] + " "
-        row['pinyin'] = cpinyin_out.lower()
-        cw.writerow(row)
+        ouputdata.append({"name": name, "pinyin": cpinyin_out})
         count = count + 1
         # if count > 5000:
         #     break
     # if done!
     progress(total, total, "Done!")
 
-    w.close()
-    f.close()
+    out_df = pd.DataFrame(ouputdata)
+
+    #out_df.drop(['index'], axis=1)
+    out_df.to_csv(out_file, index=False)
     # bar.finish()
     end = time.time()
     elapsed = end - start

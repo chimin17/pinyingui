@@ -2,6 +2,7 @@ PinYin Jyutping(拼音/粵拼) Tool
 ==
 | Date | Model | Version | Note|
 | :-------- | :----- | :---------- | :---------- |
+| 2018-07-02   | PinYin Jyutping Tool | 0.2 | revise output bug 'Café'(encode error)|
 | 2018-06-29   | PinYin Jyutping Tool | 0.1 | Beta|
 
 Input example

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import csv, os, re, sys
+import os, re, sys
 import jyutping_edit
+import pandas as pd
 import time
 
 # from progress.bar import Bar
@@ -25,24 +26,14 @@ def jyutping_processing(inp_file, out_file):
     start = time.time()
 
     count = 0
-    w = open(out_file, 'w')
-    global cw
-    total = len(open(inp_file, 'r').readlines())
-    # bar = Bar('Processing', max=len(open(inp_file, 'r').readlines()))
-    f = open(inp_file, 'r')
-    myReader = csv.DictReader(f, delimiter='|')
+    df = pd.read_csv(inp_file, delimiter='|')
+    inputdata = df.loc[:, ['chinese']].squeeze()
+    total = len(inputdata)
+    ouputdata = []
 
-    # fieldnames = myReader.fieldnames
-    fieldnames = ['chinese', 'jyutping', 'log']
-    cw = csv.DictWriter(
-        w, delimiter='|', lineterminator='\n', fieldnames=fieldnames)
-
-    cw.writeheader()
-    for row in myReader:
+    for name in inputdata:
 
         progress(count, total)
-
-        name = row['chinese'].decode("utf-8")
         name = re.sub('[%s]' % re.escape(string.punctuation), '', name)
 
         newName = ''
@@ -66,7 +57,7 @@ def jyutping_processing(inp_file, out_file):
         for jname in jpinyin:
             jcount = jcount + 1
             try:
-                if isinstance(jname, basestring):
+                if isinstance(jname, str):
                     jname = jname.replace(u'1', u'').replace(
                         u'2', u'').replace(u'3', u'').replace(
                             u'4', u'').replace(u'5', u'').replace(
@@ -85,12 +76,10 @@ def jyutping_processing(inp_file, out_file):
 
             except:
                 #英文
-                if newName[jcount].encode('utf-8').isalpha():
-
-                    jpinyin_out += newName[jcount].encode('utf-8') + "  "
-
+                if newName[jcount].isalpha():
+                    jpinyin_out += newName[jcount] + "  "
                 else:
-                    jerror += name[jcount].encode("utf-8") + " "
+                    jerror += name[jcount] + " "
         # 過濾英文空格
         r = re.compile(u'[A-Za-z]{1}\s{2}', re.U)
         findjpinyin_out = r.findall(jpinyin_out)  # utf-8
@@ -98,23 +87,30 @@ def jyutping_processing(inp_file, out_file):
         if len(findjpinyin_out) > 0:
             newfindjpinyin_out = "".join(findjpinyin_out)
 
-            jpinyin_out = jpinyin_out.encode("utf-8").replace(
-                newfindjpinyin_out.encode("utf-8"),
-                newfindjpinyin_out.encode("utf-8").replace(' ', '') +
-                " ").decode("utf-8")
-        row['jyutping'] = jpinyin_out.lower().strip()
+            jpinyin_out = jpinyin_out.replace(
+                newfindjpinyin_out,
+                newfindjpinyin_out.replace('  ', '') + " ")
 
-        if jerror != "":
-            row['log'] = "error in:" + jerror
-        cw.writerow(row)
+        log = ""
+        if jerror.strip() != "":
+            log = "error in:" + jerror
+        ouputdata.append({
+            "chinese":
+            name,
+            "jyutping":
+            jpinyin_out.lower().replace("  ", " ").strip(),
+            "log":
+            log
+        })
         count = count + 1
         # if count > 5000:
         #     break
     # if done!
+    out_df = pd.DataFrame(ouputdata)
+    out_df.reindex(columns=["chinese", "jyutping", "log"]).to_csv(
+        out_file, index=False)
     progress(total, total, "Done!")
 
-    w.close()
-    f.close()
     # bar.finish()
     end = time.time()
     elapsed = end - start

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import Tkinter as tk
-import ttk
-import Tkconstants, tkFileDialog
+# -*- coding: py36 -*-
+import tkinter as tk
+from tkinter import filedialog
 import time
 from pinyin_processing import pinyin_processing
 from jyutping_processing import jyutping_processing
@@ -9,15 +9,11 @@ root = tk.Tk()
 root.title("拼音/粵拼 Tool")
 root.iconbitmap('icon.ico')
 
-global entry1, entry2, lblexport, pb, option
-
-pb = ttk.Progressbar(root)
-pb.grid(column=3, row=0)
+global entry1, entry2, lblexport, option
 
 
 def clickGo():
     lblexport.configure(text="in progress")
-    pb.start(50)
     time.sleep(1)
     inp = entry1.get()
     out = entry2.get()
@@ -26,11 +22,10 @@ def clickGo():
         lblexport.configure(text=pinyin_processing(inp, out))
     elif optionVal == 'jyutping':
         lblexport.configure(text=jyutping_processing(inp, out))
-    pb.stop()
 
 
 def clickfile1():
-    name = tkFileDialog.askopenfilename(
+    name = filedialog.askopenfilename(
         initialdir="D:/",
         filetypes=(("All Files", "*.*"), ("All Files", "*.*")),
         title="Choose a file.")
@@ -56,7 +51,7 @@ option = tk.StringVar()
 option.set("pinyin")  # initialize
 radio1 = tk.Radiobutton(root, text="拼音(Pinyin)", value="pinyin", var=option)
 radio2 = tk.Radiobutton(
-    root, text="粵拼(jyutping)", value="Jyutping", var=option)
+    root, text="粵拼(Jyutping)", value="jyutping", var=option)
 radio1.grid(column=0, row=1)
 radio2.grid(column=2, row=1)
 
