@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
 # -*- coding: py36 -*-
+#Chi-Min Chiu, July 2018 milochiou@gmail.com
+
 import tkinter as tk
 from tkinter import filedialog
 import time
@@ -7,7 +8,6 @@ from pinyin_processing import pinyin_processing
 from jyutping_processing import jyutping_processing
 root = tk.Tk()
 root.title("拼音/粵拼 Tool")
-root.iconbitmap('icon.ico')
 
 global entry1, entry2, lblexport, option
 

@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# -*- coding: py36 -*-
+#Chi-Min Chiu, July 2018 milochiou@gmail.com
+
 import os, re, sys
 import jyutping_edit
 import pandas as pd
