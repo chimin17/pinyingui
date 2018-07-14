@@ -21,6 +21,11 @@ def progress(count, total, status=''):
     # return '[%s] %s%s ...%s\r' % (bar, percents, '%', status)
 
 
+class Jyutping_Core:
+    def __init__(self, input_name):
+        self
+
+
 def jyutping_processing(inp_file, out_file):
 
     start = time.time()
