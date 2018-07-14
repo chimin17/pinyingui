@@ -13,7 +13,7 @@ git clone https://github.com/chimin17/pinyingui.git
 pip install pandas
 ```
 ```
-pip install
+pip install pypinyin
 ```
 ```
 python main.py
