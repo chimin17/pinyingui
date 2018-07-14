@@ -1,15 +1,55 @@
-POI_Address_Separation
+
+PinYinGUI(拼音/粵拼)
 ==
+使用pypinyin與Jyutping兩個專案,打包成GUI
+以csv輸入及輸出
+
+Instruction
+--
+```
+git clone https://github.com/chimin17/pinyingui.git
+```
+```
+pip install pandas
+```
+```
+pip install
+```
+```
+python main.py
+```
+![Demo](demo.png)
+
+Input example
+--
+## input.csv
+```
+chinese
+市立文林國小(台北市)
+市立義方國小(台北市)
+市立立農國小
+市立明德國小
+市立洲美國小
+```
+
+
+PinYin Database:
+--
+https://github.com/mozillazg/python-pinyin
+- single mode: pinyin-data  https://github.com/mozillazg/pinyin-data
+- phrase mode: phrase-pinyin-data https://github.com/mozillazg/phrase-pinyin-data
+- self-defined
+
+
+Jyutping Database
+--
+https://github.com/imdreamrunner/python-jyutping
+- 2013年 kaifangcidian.com   http://www.kaifangcidian.com
+
+
+Release Note
+--
 | Date | Model | Version | Note|
 | :-------- | :----- | :---------- | :---------- |
-| 2018-05-29   | POI_seperate_address | 0.5 | resolve '大崙巷' in lane|
-| 2018-05-24   | POI_seperate_address | 0.4 | resolve '村', '里' in street name|
-| 2018-04-25   | POI_seperate_address | 0.3 | ATM error Fixed |
-| 2018-04-19   | POI_seperate_address | 0.2 | revise some error, refer the ppt for explain |
-| 2018-04-02   | POI_seperate_address | 0.1 | Beta|
-
-Features:
--	Input: csv file (UTF-8 encoding.) with one column(address) 
--	Output: csv file includes  address|postcode|county|town|village|subvillage(鄰)|street|lane(巷)|alley(弄)|housenumber|floor|remain(unrecognized chars)
-
-
+| 2018-07-02   | PinYin Jyutping Tool | 0.2 | revise output bug 'Café'(encode error)|
+| 2018-06-29   | PinYin Jyutping Tool | 0.1 | Beta|
