@@ -1,4 +1,4 @@
-PinYinGUI Jyutping(拼音/粵拼) 
+PinYinGUI(拼音/粵拼) 
 ==
 這是一個結合Pypinyin與Jyutping專案的中文拼音與粵語拼音的工具
 並以tkinter打包
