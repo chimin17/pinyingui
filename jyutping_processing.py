@@ -1,4 +1,4 @@
-# -*- coding: py36 -*-
+#! Python3
 #Chi-Min Chiu, July 2018 milochiou@gmail.com
 
 import os, re, sys

@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
-# -*- coding: py36 -*-
+#! Python3
+#Chi-Min Chiu, July 2018 milochiou@gmail.com
+
 import os, re, sys, string
 import pandas as pd
 from pypinyin import pinyin, lazy_pinyin, Style, load_phrases_dict, load_single_dict
